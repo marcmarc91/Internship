@@ -5,6 +5,10 @@ import com.arobs.internship.week1.lab3.ex1.Robot;
 import com.arobs.internship.week1.lab3.ex1.TestRobot;
 import com.arobs.internship.week1.lab3.ex2.Circle;
 import com.arobs.internship.week1.lab3.ex2.TestCircle;
+import com.arobs.internship.week1.lab3.ex3.TestAuthor;
+import com.arobs.internship.week1.lab3.ex4.MyPoint;
+import com.arobs.internship.week1.lab3.ex4.TestMyPoint;
+import com.arobs.internship.week1.lab3.ex5.Flower;
 
 import java.util.Scanner;
 
@@ -31,14 +35,10 @@ public class Main {
                     TestCircle testCircle = new TestCircle(circle);
                     break;
                 case 3:
+                    TestAuthor testAuthor = new TestAuthor();
                     break;
                 case 4:
-                    break;
-                case 5:
-                    break;
-                case 6:
-                    break;
-                case 7:
+                    TestMyPoint testMyPoint = new TestMyPoint();
                     break;
 
             }

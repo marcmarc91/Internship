@@ -5,7 +5,9 @@ public class TestCircle {
 
     public TestCircle(Circle circle) {
         this.circle = circle;
+
         System.out.printf("Radius: %s%n", circle.getRadius());
         System.out.printf("Area: %s%n", circle.getArea());
+
     }
 }
