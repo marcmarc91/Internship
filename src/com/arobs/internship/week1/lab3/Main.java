@@ -18,7 +18,7 @@ public class Main {
         int numberEx = 0;
         do {
 
-            System.out.println("Enter the exercise number (1-7) or 0 to close: ");
+            System.out.println("Enter the exercise number (1-4) or 0 to close: ");
             while (!scanner.hasNextInt()) {
                 System.out.printf("%s is not valid number. %n", scanner.next());
             }
