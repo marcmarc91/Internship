@@ -34,6 +34,7 @@ public class Main {
                     controller.setLightSensor(new LightSensor("New York"));
                     controller.setTemperatureSensor(new TemperatureSensor("Paris"));
                     controller.control();
+                    break;
                 case 4:
                     ControllerSingleton controllerSingleton = ControllerSingleton.getControllerSingleton();
                     controllerSingleton.setLightSensor(new LightSensor("Cluj"));
