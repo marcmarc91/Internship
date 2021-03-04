@@ -5,6 +5,7 @@ import java.io.*;
 public class Car implements Serializable {
     private String model;
     private int price;
+    static final long serialVersionUID = 1L;
 
     public Car() {
         model = "Skoda";
