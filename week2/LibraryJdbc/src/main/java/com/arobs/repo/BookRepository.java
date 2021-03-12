@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookRepository {
-    Connection connection;
-    Statement statement;
-    PreparedStatement preparedStatement;
+    private final Connection connection;
+    private Statement statement;
+    private PreparedStatement preparedStatement;
 
     public BookRepository() {
         this.connection = DatabaseConnection.getConnection();
@@ -64,9 +64,10 @@ public class BookRepository {
     public Book getBookByTitle(String title) {
         String selectQuery = "SELECT * FROM book WHERE title=\"" + title + "\"";
         Book book = null;
+        ResultSet res = null;
         try {
             statement = connection.createStatement();
-            ResultSet res = statement.executeQuery(selectQuery);
+            res = statement.executeQuery(selectQuery);
             book = new Book();
             if (res.next()) {
                 book.setId(res.getInt("id_book"));
@@ -77,6 +78,13 @@ public class BookRepository {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
+            if (res != null) {
+                try {
+                    res.close();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
             if (statement != null) {
                 try {
                     statement.close();
@@ -96,10 +104,11 @@ public class BookRepository {
                         "RIGHT JOIN book " +
                         "ON author.id_author = book.id_author " +
                         "where author.id_author= ? ";
+        ResultSet res = null;
         try {
             preparedStatement = connection.prepareStatement(joinQuery);
             preparedStatement.setInt(1, author.getId());
-            ResultSet res = preparedStatement.executeQuery();
+            res = preparedStatement.executeQuery();
             if (res.next()) {
                 book = new Book();
                 book.setId(res.getInt("id_book"));
@@ -111,6 +120,13 @@ public class BookRepository {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
+            if (res != null) {
+                try {
+                    res.close();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
             if (preparedStatement != null) {
                 try {
                     preparedStatement.close();
