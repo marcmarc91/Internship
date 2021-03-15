@@ -1,6 +1,8 @@
 package com.arobs.repo;
 
 import com.arobs.models.Author;
+import com.arobs.utils.ConnectionType;
+import com.arobs.utils.DataSource;
 import com.arobs.utils.DatabaseConnection;
 
 import java.sql.*;
@@ -8,12 +10,20 @@ import java.util.Arrays;
 import java.util.List;
 
 public class AuthorRepository {
-    private final Connection connection;
+    private Connection connection;
     private Statement statement;
     private PreparedStatement preparedStatement;
 
-    public AuthorRepository() {
-        connection = DatabaseConnection.getConnection();
+    public AuthorRepository(ConnectionType connectionType) {
+        if (connectionType.equals(ConnectionType.SINGLE)) {
+            connection = DatabaseConnection.getConnection();
+        } else {
+            try {
+                connection = DataSource.getConnection();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
     }
 
     public void addAuthor(Author author) {
@@ -70,29 +80,5 @@ public class AuthorRepository {
         return author;
     }
 
-//    public void getAllAuthorsWithNameConditions(String[] conditions) {
-//        String selectQuery = "SELECT * FROM author WHERE name IN (?)";
-//        StringBuilder formatConditions = new StringBuilder();
-//        for (String c : conditions) {
-//            formatConditions
-//                    .append("\"")
-//                    .append(c)
-//                    .append("\", ");
-//        }
-//        try {
-//            preparedStatement = connection.prepareStatement(selectQuery);
-//            preparedStatement.setString(1, formatConditions.toString());
-//            ResultSet res = preparedStatement.executeQuery();
-//            if (res.next()) {
-//                System.out.println("NULL");
-//            }
-//            while (res.next()) {
-//                System.out.println(res.getString("name"));
-//                System.out.println("TEST");
-//            }
-//        } catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//        }
-//    }
 
 }

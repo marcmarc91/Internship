@@ -4,18 +4,18 @@ import com.arobs.models.Author;
 import com.arobs.models.Book;
 import com.arobs.repo.AuthorRepository;
 import com.arobs.repo.BookRepository;
+import com.arobs.utils.ConnectionType;
+import com.arobs.utils.DataSource;
 import com.arobs.utils.DatabaseConnection;
 
 import java.sql.*;
-import java.util.Arrays;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        /*
         Connection connection = DatabaseConnection.getConnection();
-
-        testAuthorRepo();
-
+        testAuthorRepo(ConnectionType.SINGLE);
         if (connection != null) {
             try {
                 connection.close();
@@ -23,12 +23,16 @@ public class Main {
                 throwables.printStackTrace();
             }
         }
-
+        */
+        
+        for (int i = 0; i < 7; i++) {
+            testAuthorRepo(ConnectionType.POOL);
+        }
 
     }
 
-    public static void testBookRepo() {
-        BookRepository bookRepository = new BookRepository();
+    public static void testBookRepo(ConnectionType connectionType) {
+        BookRepository bookRepository = new BookRepository(connectionType);
 
         //create author
         Author author = new Author();
@@ -61,15 +65,14 @@ public class Main {
         bookRepository.deleteBookById(32);
     }
 
-    public static void testAuthorRepo() {
-        AuthorRepository authorRepository = new AuthorRepository();
+    public static void testAuthorRepo(ConnectionType connectionType) {
+        AuthorRepository authorRepository = new AuthorRepository(connectionType);
 
         //get author "like" name
         System.out.println(authorRepository.getAuthorLikeName("%Henry%"));
 
         //insert new author
-        authorRepository.addAuthor(new Author(9, "Ion Creanga"));
+        //  authorRepository.addAuthor(new Author(9, "Ion Creanga"));
 
-        authorRepository.getAllAuthorsWithNameConditions(new String[]{"Henry", "Homer", "dfd"});
     }
 }

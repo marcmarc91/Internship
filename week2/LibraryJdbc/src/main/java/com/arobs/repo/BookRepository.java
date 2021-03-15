@@ -2,6 +2,8 @@ package com.arobs.repo;
 
 import com.arobs.models.Author;
 import com.arobs.models.Book;
+import com.arobs.utils.ConnectionType;
+import com.arobs.utils.DataSource;
 import com.arobs.utils.DatabaseConnection;
 
 import java.sql.*;
@@ -9,12 +11,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookRepository {
-    private final Connection connection;
+    private Connection connection;
     private Statement statement;
     private PreparedStatement preparedStatement;
 
-    public BookRepository() {
-        this.connection = DatabaseConnection.getConnection();
+    public BookRepository(ConnectionType connectionType) {
+        if (connectionType.equals(ConnectionType.SINGLE)) {
+            connection = DatabaseConnection.getConnection();
+        } else {
+            try {
+                connection = DataSource.getConnection();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
     }
 
     public void addBook(Book book) {
