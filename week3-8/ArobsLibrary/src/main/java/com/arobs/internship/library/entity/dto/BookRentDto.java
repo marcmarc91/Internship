@@ -1,6 +1,6 @@
 package com.arobs.internship.library.entity.dto;
 
-import com.arobs.internship.library.entity.helper.StatusBookRent;
+import com.arobs.internship.library.entity.types.StatusBookRent;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -14,9 +14,6 @@ public class BookRentDto {
     @NotNull
     private Integer idBook;
     private UUID idCopy;
-//    private LocalDateTime rentalDate;
-//    private LocalDateTime returnDate;
-    @NotNull
     private StatusBookRent status;
     @Min(0)
     @Max(5)
@@ -53,22 +50,6 @@ public class BookRentDto {
     public void setIdCopy(UUID idCopy) {
         this.idCopy = idCopy;
     }
-
-//    public LocalDateTime getRentalDate() {
-//        return rentalDate;
-//    }
-//
-//    public void setRentalDate(LocalDateTime rentalDate) {
-//        this.rentalDate = rentalDate;
-//    }
-//
-//    public LocalDateTime getReturnDate() {
-//        return returnDate;
-//    }
-//
-//    public void setReturnDate(LocalDateTime returnDate) {
-//        this.returnDate = returnDate;
-//    }
 
     public StatusBookRent getStatus() {
         return status;

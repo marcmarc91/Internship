@@ -1,6 +1,6 @@
 package com.arobs.internship.library.entity.dto;
 
-import com.arobs.internship.library.entity.helper.RoleType;
+import com.arobs.internship.library.entity.types.RoleType;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;

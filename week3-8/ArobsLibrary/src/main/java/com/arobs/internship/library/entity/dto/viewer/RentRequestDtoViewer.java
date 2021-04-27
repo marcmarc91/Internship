@@ -2,7 +2,7 @@ package com.arobs.internship.library.entity.dto.viewer;
 
 import com.arobs.internship.library.entity.BookRent;
 import com.arobs.internship.library.entity.dto.EmployeeDto;
-import com.arobs.internship.library.entity.helper.StatusRentRequest;
+import com.arobs.internship.library.entity.types.StatusRentRequest;
 
 import java.time.LocalDateTime;
 

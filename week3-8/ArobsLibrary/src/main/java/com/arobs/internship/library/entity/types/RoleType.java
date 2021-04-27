@@ -1,4 +1,4 @@
-package com.arobs.internship.library.entity.helper;
+package com.arobs.internship.library.entity.types;
 
 import com.arobs.internship.library.exceptions.EnumValidationException;
 import com.fasterxml.jackson.annotation.JsonCreator;

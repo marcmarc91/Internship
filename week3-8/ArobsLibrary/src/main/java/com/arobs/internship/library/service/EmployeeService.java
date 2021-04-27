@@ -2,7 +2,7 @@ package com.arobs.internship.library.service;
 
 import com.arobs.internship.library.entity.Employee;
 import com.arobs.internship.library.entity.dto.EmployeeDto;
-import com.arobs.internship.library.entity.helper.RoleType;
+import com.arobs.internship.library.entity.types.RoleType;
 import com.arobs.internship.library.exceptions.NoDataFoundException;
 import com.arobs.internship.library.mapper.hibernate.EmployeeMapper;
 import com.arobs.internship.library.repository.EmployeeRepository;
@@ -26,6 +26,8 @@ public class EmployeeService {
     private BookRentService bookRentService;
     @Autowired
     private RentRequestService rentRequestService;
+    @Autowired
+    private EmployeeBanService employeeBanService;
 
     @Transactional(readOnly = true)
     public EmployeeDto getEmployeeDto(Integer id) {
@@ -55,6 +57,7 @@ public class EmployeeService {
                 .forEach(b -> bookRentService.deleteBookRentDto(b.getId()));
         rentRequestService.getAllRentRequestByEmployeeId(id)
                 .forEach(r -> rentRequestService.deleteRentRequest(r.getId()));
+//        employeeBanService.deleteEmployeeBanByEmployee(employee);
         employeeRepository.delete(employee);
         return employeeMapper.toDto(employee);
     }

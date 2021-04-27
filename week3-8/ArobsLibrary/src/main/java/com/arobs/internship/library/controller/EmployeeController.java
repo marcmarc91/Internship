@@ -1,7 +1,7 @@
 package com.arobs.internship.library.controller;
 
 import com.arobs.internship.library.entity.dto.EmployeeDto;
-import com.arobs.internship.library.entity.helper.RoleType;
+import com.arobs.internship.library.entity.types.RoleType;
 import com.arobs.internship.library.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,6 +1,6 @@
 package com.arobs.internship.library.entity;
 
-import com.arobs.internship.library.entity.helper.StatusCopy;
+import com.arobs.internship.library.entity.types.StatusCopy;
 
 import javax.persistence.*;
 import java.util.UUID;

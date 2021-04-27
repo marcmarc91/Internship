@@ -1,6 +1,6 @@
 package com.arobs.internship.library.model_jdbc;
 
-import com.arobs.internship.library.entity.helper.RoleType;
+import com.arobs.internship.library.entity.types.RoleType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

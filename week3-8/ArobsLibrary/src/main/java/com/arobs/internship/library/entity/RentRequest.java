@@ -1,7 +1,7 @@
 package com.arobs.internship.library.entity;
 
 
-import com.arobs.internship.library.entity.helper.StatusRentRequest;
+import com.arobs.internship.library.entity.types.StatusRentRequest;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -16,7 +16,7 @@ public class RentRequest {
     private Integer id;
 
     @ManyToOne
-//    @JoinColumn(name = "employee_id", nullable = false)
+    @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
 
     @ManyToOne

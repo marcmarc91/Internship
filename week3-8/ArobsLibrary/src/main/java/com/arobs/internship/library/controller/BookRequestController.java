@@ -45,13 +45,13 @@ public class BookRequestController {
         return new ResponseEntity<>(bookRequestService.deleteBookRequestDto(id), HttpStatus.OK);
     }
 
-    @PostMapping("/accept/{id}")
+    @PostMapping("/{id}/accept")
     public ResponseEntity<BookRequestDtoViewer> acceptBookRequest(@PathVariable Integer id,
                                                                   @Valid @RequestBody BookDto bookDto) {
         return new ResponseEntity<>(bookRequestService.acceptBookRequestDto(id, bookDto), HttpStatus.CREATED);
     }
 
-    @PostMapping("/decline/{id}")
+    @PostMapping("/{id}/decline")
     public ResponseEntity<BookRequestDtoViewer> declineBookRequest(@PathVariable Integer id) {
         return new ResponseEntity<>(bookRequestService.declineBookRequestDto(id), HttpStatus.CREATED);
     }

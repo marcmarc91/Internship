@@ -1,7 +1,7 @@
 package com.arobs.internship.library.entity;
 
 
-import com.arobs.internship.library.entity.helper.StatusBookRequest;
+import com.arobs.internship.library.entity.types.StatusBookRequest;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

@@ -1,7 +1,7 @@
 package com.arobs.internship.library.entity.dto.viewer;
 
 import com.arobs.internship.library.entity.dto.AuthorDto;
-import com.arobs.internship.library.entity.helper.StatusBookRequest;
+import com.arobs.internship.library.entity.types.StatusBookRequest;
 
 import java.time.LocalDateTime;
 import java.util.List;

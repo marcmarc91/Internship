@@ -1,6 +1,6 @@
 package com.arobs.internship.library.entity.dto;
 
-import com.arobs.internship.library.entity.helper.StatusRentRequest;
+import com.arobs.internship.library.entity.types.StatusRentRequest;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -13,7 +13,6 @@ public class RentRequestDto {
     private Integer idBook;
 //    @FutureOrPresent
     private LocalDateTime requestDate;
-    @NotNull
     private StatusRentRequest status;
 
     public Integer getId() {

@@ -1,7 +1,7 @@
 package com.arobs.internship.library.repository;
 
 import com.arobs.internship.library.entity.BookRent;
-import com.arobs.internship.library.entity.helper.StatusBookRent;
+import com.arobs.internship.library.entity.types.StatusBookRent;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

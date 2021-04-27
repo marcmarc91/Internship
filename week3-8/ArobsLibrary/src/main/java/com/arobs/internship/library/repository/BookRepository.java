@@ -1,8 +1,6 @@
 package com.arobs.internship.library.repository;
 
 import com.arobs.internship.library.entity.Book;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,6 +13,6 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 
     List<Book> findAllByAuthorsId(int authorId);
 
-    Page<Book> findAllByOrderByBookRents(Pageable pageable);
+//    Page<Book> findAllByOrderByBookRents(Pageable pageable);
 //    Set<Book> findAllByOrderByBookRents();
 }

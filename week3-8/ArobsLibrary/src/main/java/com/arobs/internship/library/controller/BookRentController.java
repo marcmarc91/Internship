@@ -2,7 +2,7 @@ package com.arobs.internship.library.controller;
 
 import com.arobs.internship.library.entity.dto.BookRentDto;
 import com.arobs.internship.library.entity.dto.viewer.BookRentDtoViewer;
-import com.arobs.internship.library.entity.helper.StatusBookRent;
+import com.arobs.internship.library.entity.types.StatusBookRent;
 import com.arobs.internship.library.service.BookRentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -54,7 +54,7 @@ public class BookRentController {
         return new ResponseEntity<>(bookRentService.getBookRentsByStatus(statusBookRent), HttpStatus.OK);
     }
 
-    @PostMapping("/{id}/employee/{idEmployee}rating/{ratingBook}")
+    @PutMapping("/{id}/employee/{idEmployee}/rating/{ratingBook}")
     public ResponseEntity<BookRentDtoViewer> giveBackBookRentByIdAndIdEmployee(@PathVariable Integer id,
                                                                                @PathVariable Integer idEmployee,
                                                                                @PathVariable @Min(1) @Max(5) int ratingBook) {
@@ -73,7 +73,7 @@ public class BookRentController {
         return new ResponseEntity<>(bookRentService.getAllBookRentsByEmployeeId(id), HttpStatus.OK);
     }
 
-    @PostMapping("/extension/{id}")
+    @PutMapping("/{id}/extend")
     public ResponseEntity<BookRentDtoViewer> extensionOfRentalById(@PathVariable Integer id) {
         return new ResponseEntity<>(bookRentService.extensionOfRentalDateById(id), HttpStatus.CREATED);
     }

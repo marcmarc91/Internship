@@ -4,7 +4,7 @@ import com.arobs.internship.library.entity.Book;
 import com.arobs.internship.library.entity.Copy;
 import com.arobs.internship.library.entity.dto.CopyDto;
 import com.arobs.internship.library.entity.dto.viewer.CopyDtoViewer;
-import com.arobs.internship.library.entity.helper.StatusCopy;
+import com.arobs.internship.library.entity.types.StatusCopy;
 import com.arobs.internship.library.exceptions.EntityMustNotBeModifiedException;
 import com.arobs.internship.library.exceptions.NoCopyAvailableForRentException;
 import com.arobs.internship.library.exceptions.NoDataFoundException;
@@ -78,7 +78,7 @@ public class CopyService {
 
     @Transactional(readOnly = true)
     public List<CopyDtoViewer> getAllCopiesDtoByBookIdAndStatus(Integer bookId, StatusCopy statusCopy) {
-        return copyMapper.toListDtos(getAllCopiesByBookIdAndStatus(bookId, statusCopy));
+        return copyMapper.toListDtos(getAllCopiesByBookIdAndStatus(bookId, statusCopy, true));
     }
 
     @Transactional(readOnly = true)
@@ -109,7 +109,7 @@ public class CopyService {
     }
 
     public Copy getCopyByBookIdAndStatus(Integer bookId, StatusCopy statusCopy) {
-        return getAllCopiesByBookIdAndStatus(bookId, statusCopy)
+        return getAllCopiesByBookIdAndStatus(bookId, statusCopy, true)
                 .stream()
                 .findAny()
                 .orElseThrow(() -> new NoDataFoundException("This copy with the status " + statusCopy.getStatus() +
@@ -118,16 +118,17 @@ public class CopyService {
                         " be found", bookId));
     }
 
-    protected List<Copy> getAllCopiesByBookIdAndStatus(Integer bookId, StatusCopy statusCopy) {
-        return copyRepository.findAllByBookIdAndStatusAndFlag(bookId, statusCopy, true);
+    protected List<Copy> getAllCopiesByBookIdAndStatus(Integer bookId, StatusCopy statusCopy, boolean flag) {
+        return copyRepository.findAllByBookIdAndStatusAndFlag(bookId, statusCopy, flag);
     }
 
     protected Copy getCopyByBookIdAndStatusAndFlag(Integer bookId, StatusCopy statusCopy, boolean flag) {
-        return getAllCopiesByBookIdAndStatus(bookId, statusCopy)
+        return getAllCopiesByBookIdAndStatus(bookId, statusCopy, flag)
                 .stream()
                 .filter(copy -> copy.getStatus().equals(statusCopy))
                 .findAny()
-                .orElseThrow(() -> new NoCopyAvailableForRentException(bookId));
+                .orElseThrow(() -> new NoCopyAvailableForRentException("There are currently no copies available for " +
+                        "this. Please add a new Rent Request", bookId));
     }
 
 

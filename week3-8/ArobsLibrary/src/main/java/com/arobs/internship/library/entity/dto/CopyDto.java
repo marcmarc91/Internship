@@ -1,6 +1,6 @@
 package com.arobs.internship.library.entity.dto;
 
-import com.arobs.internship.library.entity.helper.StatusCopy;
+import com.arobs.internship.library.entity.types.StatusCopy;
 
 import javax.validation.constraints.NotNull;
 import java.util.UUID;

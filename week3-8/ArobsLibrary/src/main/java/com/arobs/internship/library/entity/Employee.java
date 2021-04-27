@@ -1,7 +1,7 @@
 package com.arobs.internship.library.entity;
 
 
-import com.arobs.internship.library.entity.helper.RoleType;
+import com.arobs.internship.library.entity.types.RoleType;
 
 import javax.persistence.*;
 

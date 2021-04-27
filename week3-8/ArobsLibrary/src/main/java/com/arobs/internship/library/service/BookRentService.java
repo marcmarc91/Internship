@@ -4,8 +4,8 @@ import com.arobs.internship.library.entity.BookRent;
 import com.arobs.internship.library.entity.Copy;
 import com.arobs.internship.library.entity.dto.BookRentDto;
 import com.arobs.internship.library.entity.dto.viewer.BookRentDtoViewer;
-import com.arobs.internship.library.entity.helper.StatusBookRent;
-import com.arobs.internship.library.entity.helper.StatusCopy;
+import com.arobs.internship.library.entity.types.StatusBookRent;
+import com.arobs.internship.library.entity.types.StatusCopy;
 import com.arobs.internship.library.exceptions.EntityMustNotBeModifiedException;
 import com.arobs.internship.library.exceptions.ExtensionPeriodLimitExceededException;
 import com.arobs.internship.library.exceptions.LimitedAccessException;
@@ -95,7 +95,10 @@ public class BookRentService {
     public BookRentDtoViewer giveBackBookRentById(Integer id, Integer idEmployee, int ratingBook) {
         BookRent returnBook = getBookRentById(id);
         if (!returnBook.getEmployee().getId().equals(idEmployee)) {
-            throw new EntityMustNotBeModifiedException("This book rent does not belong to the employee with id: " + idEmployee, id);
+            throw new EntityMustNotBeModifiedException("This book rent does not belong to the employee", id);
+        }
+        if(returnBook.getStatus().equals(StatusBookRent.RETURNED)){
+            throw new EntityMustNotBeModifiedException("This book has already been returned", id);
         }
         if (returnBook.getStatus().equals(StatusBookRent.LATE)) {
             returnBook.getEmployee().setBanned(true);
@@ -127,6 +130,9 @@ public class BookRentService {
     @Transactional
     public BookRentDtoViewer extensionOfRentalDateById(Integer id) {
         BookRent bookRent = getBookRentById(id);
+        if(bookRent.getStatus().equals(StatusBookRent.RETURNED)){
+            throw new EntityMustNotBeModifiedException("This book has already been returned", id);
+        }
         LocalDateTime maxPeriod = bookRent.getRentalDate().plusMonths(Constants.MAX_PERIOD_RENT_MONTHS);
         LocalDateTime extensionPeriod = bookRent.getReturnDate().plusDays(Constants.RENTAL_EXTENSION_DAYS);
         if (extensionPeriod.isAfter(maxPeriod)) {

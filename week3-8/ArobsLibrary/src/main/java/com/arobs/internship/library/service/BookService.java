@@ -11,17 +11,13 @@ import com.arobs.internship.library.repository.BookRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class BookService {
@@ -118,27 +114,4 @@ public class BookService {
                 });
     }
 
-//    @Transactional(readOnly = true)
-//    public List<BookDtoViewer> getBooksByOrderByBookRents() {
-//        Set<Book> books = bookRepository.findAllByOrderByBookRents();
-//        List<Book> collect = books
-//                .stream()
-//                .sorted((o1, o2) -> -Integer.compare(o1.getBookRents().size(), o2.getBookRents().size()))
-//                .collect(Collectors.toList());
-//
-//        return bookMapper.toListDtoViewers(collect);
-//    }
-
-    @Transactional(readOnly = true)
-    public List<BookDtoViewer> getTopXBooksRentedInSpecifiedPeriod(LocalDateTime startDate, LocalDateTime endDate
-            , int size) {
-        Pageable pageable = PageRequest.of(0, size);
-
-        List<Book> collect = bookRepository.findAllByOrderByBookRents(pageable).getContent()
-                .stream()
-                .distinct()
-                .sorted((o1, o2) -> -Integer.compare(o1.getBookRents().size(), o2.getBookRents().size()))
-                .collect(Collectors.toList());
-        return bookMapper.toListDtoViewers(collect);
-    }
 }

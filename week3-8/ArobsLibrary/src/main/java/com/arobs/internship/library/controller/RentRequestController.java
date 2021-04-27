@@ -2,7 +2,7 @@ package com.arobs.internship.library.controller;
 
 import com.arobs.internship.library.entity.dto.RentRequestDto;
 import com.arobs.internship.library.entity.dto.viewer.RentRequestDtoViewer;
-import com.arobs.internship.library.entity.helper.StatusRentRequest;
+import com.arobs.internship.library.entity.types.StatusRentRequest;
 import com.arobs.internship.library.service.RentRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -69,7 +69,7 @@ public class RentRequestController {
     }
 
     @GetMapping("/employee/{idEmployee}")
-    public ResponseEntity<List<RentRequestDtoViewer>> getAllRentRequestsByEmployeeId(@PathVariable("employeeId") Integer id) {
+    public ResponseEntity<List<RentRequestDtoViewer>> getAllRentRequestsByEmployeeId(@PathVariable("idEmployee") Integer id) {
         return new ResponseEntity<>(rentRequestService.getAllRentRequestByEmployeeId(id), HttpStatus.OK);
     }
 }

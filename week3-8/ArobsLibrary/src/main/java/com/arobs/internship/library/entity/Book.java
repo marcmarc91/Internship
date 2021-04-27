@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "book")
@@ -43,14 +42,6 @@ public class Book {
 
     @Column(name = "date_added", nullable = false)
     private LocalDate dateAdded;
-
-    @OneToMany(
-            mappedBy = "book",
-//            cascade = CascadeType.ALL,
-//            orphanRemoval = true,
-            fetch = FetchType.LAZY
-    )
-    private Set<BookRent> bookRents;
 
     public void addAuthor(Author author) {
         if (!authors.contains(author)) {
@@ -118,13 +109,5 @@ public class Book {
 
     public void setDateAdded(LocalDate dateAdded) {
         this.dateAdded = dateAdded;
-    }
-
-    public void setBookRents(Set<BookRent> bookRents) {
-        this.bookRents = bookRents;
-    }
-
-    public Set<BookRent> getBookRents() {
-        return bookRents;
     }
 }

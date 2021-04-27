@@ -1,7 +1,7 @@
 package com.arobs.internship.library.repository;
 
 import com.arobs.internship.library.entity.RentRequest;
-import com.arobs.internship.library.entity.helper.StatusRentRequest;
+import com.arobs.internship.library.entity.types.StatusRentRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

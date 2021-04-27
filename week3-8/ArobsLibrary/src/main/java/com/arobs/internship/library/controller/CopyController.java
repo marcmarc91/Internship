@@ -2,7 +2,7 @@ package com.arobs.internship.library.controller;
 
 import com.arobs.internship.library.entity.dto.CopyDto;
 import com.arobs.internship.library.entity.dto.viewer.CopyDtoViewer;
-import com.arobs.internship.library.entity.helper.StatusCopy;
+import com.arobs.internship.library.entity.types.StatusCopy;
 import com.arobs.internship.library.service.CopyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -2,9 +2,9 @@ package com.arobs.internship.library;
 
 import com.arobs.internship.library.config.HibernateConfig;
 import com.arobs.internship.library.entity.*;
-import com.arobs.internship.library.entity.helper.RoleType;
-import com.arobs.internship.library.entity.helper.StatusBookRent;
-import com.arobs.internship.library.entity.helper.StatusCopy;
+import com.arobs.internship.library.entity.types.RoleType;
+import com.arobs.internship.library.entity.types.StatusBookRent;
+import com.arobs.internship.library.entity.types.StatusCopy;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;

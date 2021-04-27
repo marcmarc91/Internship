@@ -10,7 +10,7 @@ public class NoCopyAvailableForRentException extends RuntimeException {
     }
 
     public NoCopyAvailableForRentException(int bookId) {
-        super("There are currently no copies available for book with id " + bookId);
+        super("There are currently no copies available for this");
         this.bookId = bookId;
     }
 

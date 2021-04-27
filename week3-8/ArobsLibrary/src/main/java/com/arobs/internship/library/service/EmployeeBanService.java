@@ -1,5 +1,6 @@
 package com.arobs.internship.library.service;
 
+import com.arobs.internship.library.entity.Employee;
 import com.arobs.internship.library.entity.EmployeeBan;
 import com.arobs.internship.library.entity.dto.EmployeeBanDto;
 import com.arobs.internship.library.mapper.hibernate.EmployeeBanMapper;
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +26,7 @@ public class EmployeeBanService {
     @Autowired
     EmployeeService employeeService;
 
+    @Transactional
     public void saveOrUpdateEmployeeBan(EmployeeBanDto employeeBanDto) {
         Optional<EmployeeBan> employeeBanById = getEmployeeBanById(employeeBanDto.getIdEmployee());
         if (employeeBanById.isPresent()) {
@@ -31,16 +34,21 @@ public class EmployeeBanService {
         } else employeeBanRepository.save(employeeBanMapper.toEntity(employeeBanDto, employeeService));
     }
 
+    @Transactional
     protected Optional<EmployeeBan> getEmployeeBanById(Integer id) {
         return employeeBanRepository.findById(id);
     }
 
+    @Transactional
     public List<EmployeeBan> getEmployeeBanByEmployeeIsBannedAndStopDateLessThanEqual(boolean isBanned,
                                                                                       LocalDateTime date) {
         return employeeBanRepository.getAllBanByEmployeeIsBannedAndStopDateLessThanEqual(isBanned, date);
     }
-//
-//    private EmployeeBan getEmployeeBanByIdEmployee(Integer idEmployee) {
-//        return employeeBanRepository.findByEmployeeId(idEmployee);
-//    }
+
+    @Transactional
+    protected void deleteEmployeeBanByEmployee(Employee employee){
+        Optional<EmployeeBan> byEmployeeId = employeeBanRepository.getByEmployeeId(employee.getId());
+        byEmployeeId.ifPresent(employeeBan -> employeeBanRepository.delete(employeeBan));
+    }
+
 }

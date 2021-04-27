@@ -1,13 +1,14 @@
 package com.arobs.internship.library.service;
 
+import com.arobs.internship.library.entity.Author;
 import com.arobs.internship.library.entity.BookRequest;
 import com.arobs.internship.library.entity.dto.BookDto;
 import com.arobs.internship.library.entity.dto.BookRequestDto;
 import com.arobs.internship.library.entity.dto.CopyDto;
 import com.arobs.internship.library.entity.dto.viewer.BookDtoViewer;
 import com.arobs.internship.library.entity.dto.viewer.BookRequestDtoViewer;
-import com.arobs.internship.library.entity.helper.StatusBookRequest;
-import com.arobs.internship.library.entity.helper.StatusCopy;
+import com.arobs.internship.library.entity.types.StatusBookRequest;
+import com.arobs.internship.library.entity.types.StatusCopy;
 import com.arobs.internship.library.exceptions.NoDataFoundException;
 import com.arobs.internship.library.mapper.hibernate.BookRequestMapper;
 import com.arobs.internship.library.repository.BookRequestRepository;
@@ -17,7 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BookRequestService {
@@ -47,6 +50,7 @@ public class BookRequestService {
     @Transactional
     public BookRequestDtoViewer addBookRequestDto(BookRequestDto bookRequestDto) {
         bookRequestDto.setStatus(StatusBookRequest.PENDING);
+        bookRequestDto.setDate(LocalDateTime.now());
         return bookRequestMapper.toDtoViewer(bookRequestRepository.save(bookRequestMapper.toEntity(bookRequestDto, authorService)));
     }
 
@@ -70,6 +74,11 @@ public class BookRequestService {
             throw new NoDataFoundException("This book request is not awaiting confirmation", id);
         }
         bookRequest.setStatus(StatusBookRequest.ACCEPTED);
+        bookDto.setTitle(bookRequest.getTitle());
+        bookDto.setAuthors(bookRequest.getAuthors()
+                .stream()
+                .map(Author::getId)
+                .collect(Collectors.toSet()));
         BookDtoViewer addBookDto = bookService.addBookDto(bookDto);
         for (int i = 0; i < bookRequest.getNoCopies(); i++) {
             CopyDto copyDto = new CopyDto();

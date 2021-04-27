@@ -4,8 +4,8 @@ import com.arobs.internship.library.entity.Copy;
 import com.arobs.internship.library.entity.RentRequest;
 import com.arobs.internship.library.entity.dto.RentRequestDto;
 import com.arobs.internship.library.entity.dto.viewer.RentRequestDtoViewer;
-import com.arobs.internship.library.entity.helper.StatusCopy;
-import com.arobs.internship.library.entity.helper.StatusRentRequest;
+import com.arobs.internship.library.entity.types.StatusCopy;
+import com.arobs.internship.library.entity.types.StatusRentRequest;
 import com.arobs.internship.library.exceptions.EntityMustNotBeModifiedException;
 import com.arobs.internship.library.exceptions.LimitedAccessException;
 import com.arobs.internship.library.exceptions.NoDataFoundException;
@@ -57,7 +57,12 @@ public class RentRequestService {
             throw new LimitedAccessException("A book rent cannot be created because this employee is banned",
                     rentRequestDto.getIdEmployee());
         }
+        if (copyService.getAllCopiesByBookIdAndStatus(rentRequestDto.getIdBook(), StatusCopy.AVAILABLE, true).size()>0){
+            throw new EntityMustNotBeModifiedException("For this book there are copies available, no need to add a " +
+                    "rental request", rentRequestDto.getIdBook());
+        }
         rentRequestDto.setStatus(StatusRentRequest.WAITING_FOR_AVAILABLE);
+        rentRequestDto.setRequestDate(LocalDateTime.now());
         return rentRequestMapper.toDtoViewer(rentRequestRepository.save(rentRequestMapper.toEntity(rentRequestDto, bookService, employeeService)));
     }
 
@@ -150,11 +155,11 @@ public class RentRequestService {
 
     private RentRequest getRentRequestForStatusChange(Integer id, Integer idEmployee) {
         RentRequest rentRequest = getRentRequestById(id);
-        if (!rentRequest.getStatus().equals(StatusRentRequest.WAITING_FOR_CONFIRMATION)) {
-            throw new NoDataFoundException("This rental request is not awaiting confirmation", id);
-        }
         if (!rentRequest.getEmployee().getId().equals(idEmployee)) {
             throw new EntityMustNotBeModifiedException("This request for rent does not belong to the employee with id: " + idEmployee, id);
+        }
+        if (!rentRequest.getStatus().equals(StatusRentRequest.WAITING_FOR_CONFIRMATION)) {
+            throw new NoDataFoundException("This rental request is not awaiting confirmation", id);
         }
         return rentRequest;
     }

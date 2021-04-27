@@ -1,6 +1,6 @@
 package com.arobs.internship.library.entity.dto;
 
-import com.arobs.internship.library.entity.helper.StatusBookRequest;
+import com.arobs.internship.library.entity.types.StatusBookRequest;
 
 import javax.validation.constraints.*;
 import java.time.LocalDateTime;
@@ -21,9 +21,7 @@ public class BookRequestDto {
     @NotNull
     @Positive
     private double totalCost;
-    @NotNull
     private StatusBookRequest status;
-    @PastOrPresent
     private LocalDateTime date;
 
     public Integer getId() {
